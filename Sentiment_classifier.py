@@ -1,6 +1,9 @@
 '''Analysisng the Sentiment of the writer from their tweets
 using negative and positive words used in the sentence'''
 
+
+from matplotlib import pyplot as plt
+
 # getting all the positive word from file
 positive_words = []
 with open('./positive_words.txt', 'r') as file:
@@ -47,6 +50,8 @@ def get_neg(line):
 
     return neg_count
 #----------------------------------------------
+xaxis = []
+yaxis = []
 
 def tweet_classifier():
     tweet_data = []
@@ -72,7 +77,15 @@ def tweet_classifier():
 
         for data in tweet_data:
             csv_file.write('{}, {}, {}, {}, {}\n'.format(*data)) # write the data to the file
+            xaxis.append(data[-1])
+            yaxis.append(data[0])
 #---------------------------------------------------------------
 
 
 tweet_classifier()
+
+plt.scatter(xaxis,yaxis)
+plt.xlabel('Net Sentiment Score')
+plt.ylabel('Number of Retweets')
+plt.show()
+
